@@ -45,11 +45,3 @@ class OrientationViewModel @Inject constructor(@ApplicationContext context: Cont
     }
 
 }
-
-//val cameraPositionState = rememberCameraPositionState {
-//    position = CameraPosition.builder().apply {
-//        target()
-//        bearing(bearing)
-//        zoom(10f)
-//    }.build()
-//    }
