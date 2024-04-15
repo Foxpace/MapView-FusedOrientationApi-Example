@@ -22,10 +22,10 @@ class OrientationViewModel @Inject constructor(@ApplicationContext context: Cont
 
     private val orientationRepo = OrientationRepo(context)
 
-    private val _bearing: MutableStateFlow<CameraPositionState> = MutableStateFlow(
+    private val _cameraPositionState: MutableStateFlow<CameraPositionState> = MutableStateFlow(
         CameraPositionState()
     )
-    var bearing = _bearing.asStateFlow()
+    val cameraPositionState = _cameraPositionState.asStateFlow()
 
 
     fun start() = orientationRepo.addListener(this)
@@ -35,7 +35,7 @@ class OrientationViewModel @Inject constructor(@ApplicationContext context: Cont
 
     override fun onDeviceOrientationChanged(orientation: DeviceOrientation) {
         viewModelScope.launch(Dispatchers.Main) {
-            _bearing.value = CameraPositionState(CameraPosition.builder().apply {
+            _cameraPositionState.value = CameraPositionState(CameraPosition.builder().apply {
                 target(LatLng(49.06144, 20.29798))
                 bearing(orientation.headingDegrees)
                 zoom(10f)
@@ -43,5 +43,4 @@ class OrientationViewModel @Inject constructor(@ApplicationContext context: Cont
 
         }
     }
-
 }

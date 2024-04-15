@@ -14,15 +14,16 @@ class OrientationRepo(context: Context) {
     private var listener: DeviceOrientationListener? = null
     private val fusedOrientationProviderClient: FusedOrientationProviderClient =
         LocationServices.getFusedOrientationProviderClient(context)
+    private val request =
+        DeviceOrientationRequest.Builder(DeviceOrientationRequest.OUTPUT_PERIOD_DEFAULT).build()
 
     fun addListener(
-        listener: OrientationViewModel,
+        listener: DeviceOrientationListener,
         executor: ExecutorService = Executors.newSingleThreadExecutor()
     ) {
         removeListenerIfExists()
         this.listener = listener
-        val request =
-            DeviceOrientationRequest.Builder(DeviceOrientationRequest.OUTPUT_PERIOD_DEFAULT).build()
+
         fusedOrientationProviderClient.requestOrientationUpdates(request, executor, listener)
             .addOnSuccessListener {
                 Log.i(TAG, "Successfully added new orientation listener")

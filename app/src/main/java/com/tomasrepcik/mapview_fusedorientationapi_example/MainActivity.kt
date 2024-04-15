@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     val orientationViewModel: OrientationViewModel = hiltViewModel()
-                    OrientationUi(state = orientationViewModel.bearing.collectAsState().value,
+                    OrientationUi(state = orientationViewModel.cameraPositionState.collectAsState().value,
                         onStart = { orientationViewModel.start() },
                         onStop = { orientationViewModel.stop() })
                 }
